@@ -4,100 +4,92 @@ import (
 	"fmt"
 )
 
-// Main logic, envoking other functions
 func main() {
 
-	fmt.Println("\nWelcome to the Cypher Tool!\n")
+	var resStr string
 
-	var toEncrypt bool
-	var encoding, message, resStr, action string
+	fmt.Printf("\nWelcome to the Cypher Tool!\n\n")
+	toEncrypt, encoding, message := getInput() // here you declare variables and get the input from user what they want
 
-	toEncrypt, encoding, message = getInput()
-
-	if encoding == "rot13" {
-
-		if toEncrypt {
-
-			action = "Encrypted"
-
+	switch {
+	case toEncrypt && encoding == "1":
+		{
 			resStr = encrypt_rot13(message)
-
-		} else {
-
-			action = "Decrypted"
-
+			encoding = "rot13"
+		}
+	case toEncrypt && encoding == "2":
+		{
+			resStr = encrypt_reverse(message)
+			encoding = "reverse"
+		}
+	case toEncrypt && encoding == "3":
+		{
+			resStr = encrypt_somethingElse(message)
+			encoding = "something else"
+		}
+	case !toEncrypt && encoding == "1":
+		{
 			resStr = decrypt_rot13(message)
-
+			encoding = "rot13"
+		}
+	case !toEncrypt && encoding == "2":
+		{
+			resStr = decrypt_reverse(message)
+			encoding = "reverse"
+		}
+	case !toEncrypt && encoding == "3":
+		{
+			resStr = decrypt_somethingElse(message)
+			encoding = "something else"
 		}
 	}
 
-	if encoding == "reverse" {
+	action := "Decrypted"
 
-		if toEncrypt {
-
-			action = "Encrypted"
-
-			resStr = encrypt_reverse(message)
-
-		} else {
-
-			action = "Decrypted"
-
-			resStr = decrypt_reverse(message)
-
-		}
+	if toEncrypt {
+		action = "Encrypted"
 	}
 
 	fmt.Printf("\n%v message using %v:\n", action, encoding)
-
 	fmt.Println(resStr)
-
 }
 
-// Get the input data required for the operation
 func getInput() (toEncrypt bool, encoding string, message string) {
 
-	var actionChoise int
-	var cypherChoise int
+	fmt.Println("Select operation (1/2): \n", "1. Encrypt.\n", "2. Decrypt.")
 
-	fmt.Println("Select operation (1/2):\n1. Encrypt.\n2. Decrypt.")
+	var operation int
+	var validOperation bool
 
-	for actionChoise != 1 && actionChoise != 2 {
-
-		fmt.Scan(&actionChoise)
-
+	for !validOperation {
+		fmt.Scanln(&operation)
+		if operation == 1 || operation == 2 {
+			validOperation = true
+		}
 	}
 
-	fmt.Println("\nSelect cypher (1/2):\n1. ROT13.\n2. Reverse.")
-
-	for cypherChoise != 1 && cypherChoise != 2 {
-
-		fmt.Scan(&cypherChoise)
-
-	}
-
-	fmt.Println("\nEnter the message:")
-
-	fmt.Scan(&message)
-
-	if actionChoise == 1 {
-
+	if operation == 1 {
 		toEncrypt = true
-
+	}
+	if operation == 2 {
+		toEncrypt = false
 	}
 
-	if cypherChoise == 1 {
+	fmt.Println("\nSelect cypher (1/2/3): \n", "1. ROT13.\n", "2. Reverse.\n", "3. Something else.")
 
-		encoding = "rot13"
+	var validEncoding bool
 
-	} else {
-
-		encoding = "reverse"
-
+	for !validEncoding {
+		fmt.Scanln(&encoding)
+		if encoding == "1" || encoding == "2" || encoding == "3" {
+			validEncoding = true
+		}
 	}
+
+	fmt.Println("\nEnter the message: ")
+	fmt.Scanln(&message)
 
 	return
-
 }
 
 // Encrypt the message with rot13
@@ -168,6 +160,10 @@ func encrypt_reverse(s string) string {
 
 }
 
+func encrypt_somethingElse(s string) string {
+	return "1 + 3 " + s
+}
+
 // Decrypt the message with rot13
 func decrypt_rot13(s string) string {
 
@@ -234,4 +230,8 @@ func decrypt_reverse(s string) string {
 
 	return encryptedStr
 
+}
+
+func decrypt_somethingElse(s string) string {
+	return "2 + 3 " + s
 }

@@ -28,7 +28,7 @@ ___
 
 ### "What does the tool do?"
 
-The tool prompts the user to select an operation (encrypt or decrypt) and an encryption method. In our case, Rot13, Reverse and "".
+The tool prompts the user to select an operation (encrypt or decrypt) and an encryption method. In our case, Rot13, Reverse and ReverseAlphabetValue.
 
 After the user enters a message, the program applies the selected encryption method to the message.
 
@@ -38,13 +38,15 @@ If encryption is selected and the Rot13 method is selected, the program applies 
 
 If decryption and the Rot13 method are selected, the program performs the reverse Rot13 operation on the message.
 
-Similar actions are performed for the Reverse and "" methods.
+Similar actions are performed for the Reverse and ReverseAlphabetValue methods.
 
 ### The cyphers used
 
 Rot13: Replaces every letter in the message with a letter 13 positions ahead in the alphabet. Applies to the Latin alphabet.
 
-Reverse: Reverses the order of characters in the message. For example, "hello" will become "olleh".
+Reverse: The letter changes to the corresponding letter, which is the same distance from the beginning of the alphabet, but in reverse order. For example, given the letter "i". This is the 9th letter from the beginning of the alphabet. After encryption, the letter changes to 9th from the end.
+
+ReverseAlphabetValue: Reverses the order of characters in the message. For example, "hello" will become "olleh".
 
 ![Picture](https://media.geeksforgeeks.org/wp-content/cdn-uploads/string-reverse.jpg)
 
@@ -67,5 +69,5 @@ Reverse: Reverses the order of characters in the message. For example, "hello" w
 
 - [X] Reverse, similar to ReverseAlphabetValue you created for a single rune.
 
-- [ ] One more encryption of your choice.
+- [X] One more encryption of your choice.
 
